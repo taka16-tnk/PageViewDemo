@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UnderBerTabView" customModule="PageViewDemo" customModuleProvider="target">
+            <connections>
+                <outlet property="barView" destination="Y66-pg-zVP" id="A9H-Tr-lY2"/>
+                <outlet property="collectionView" destination="9Bf-hs-YmT" id="mx2-a8-hqH"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9Bf-hs-YmT">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="y1g-KQ-31U"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tAM-85-k9O">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y66-pg-zVP" userLabel="Bar View">
+                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="2"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="o4Q-y1-1g8"/>
+                        <constraint firstAttribute="width" id="xqG-Kw-yTb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9Bf-hs-YmT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="21C-bR-gQG"/>
+                <constraint firstAttribute="bottom" secondItem="9Bf-hs-YmT" secondAttribute="bottom" id="AyS-i3-iRL"/>
+                <constraint firstAttribute="trailing" secondItem="9Bf-hs-YmT" secondAttribute="trailing" id="E54-eC-3d0"/>
+                <constraint firstItem="Y66-pg-zVP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Rjf-b8-u2L"/>
+                <constraint firstItem="9Bf-hs-YmT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="got-al-aHA"/>
+                <constraint firstItem="Y66-pg-zVP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vdP-5e-YEP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="127.53623188405798" y="152.67857142857142"/>
+        </view>
+    </objects>
+</document>
