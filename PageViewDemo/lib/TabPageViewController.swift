@@ -92,6 +92,17 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     // ページ諸々
     func setupPageList() {
         
+        // 選択箇所に下線をつける
+        let designView = UIView()
+        designView.backgroundColor = .orange
+        designView.center = menuBackground.center
+        self.menuBackground.addSubview(designView)
+        self.menuView.bringSubviewToFront(menuBackground)
+        designView.translatesAutoresizingMaskIntoConstraints = false
+        designView.bottomAnchor.constraint(equalTo: self.menuView.bottomAnchor).isActive = true
+        designView.widthAnchor.constraint(equalTo: self.menuView.widthAnchor, multiplier: 1.0 / CGFloat(self.pageInfoList.count)).isActive = true
+        designView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
         // メニュー作る
         var constraintsString = "|"
         var menuItemViewList: [String: UIView] = [:]
@@ -151,7 +162,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
         index -= 1
         if index < 0 {
-            index = self.pageInfoList.count - 1
+            // スクロール固定のためnilを返す
+            return nil
         }
         return self.pageInfoList[index].vc
     }
@@ -162,7 +174,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
         index += 1
         if index > self.pageInfoList.count - 1 {
-            index = 0
+            // スクロール固定のためnilを返す
+            return nil
         }
         return self.pageInfoList[index].vc
     }

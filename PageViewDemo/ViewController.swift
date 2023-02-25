@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         vc.pageInfoList = [
             {
                 let view = TextViewMenuItemView()
-                view.backgroundColor = .red
+//                view.backgroundColor = .red
                 view.title = "ログイン"
                 view.parent = vc
                 let vc = UIViewController()
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             }(),
             {
                 let view = TextViewMenuItemView()
-                view.backgroundColor = .green
+//                view.backgroundColor = .green
                 view.title = "新規登録"
                 view.parent = vc
                 let vc = UIViewController()
