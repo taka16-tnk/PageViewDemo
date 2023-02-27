@@ -40,6 +40,37 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // ページ情報
+        pageInfoList = [
+            {
+                let view = TextViewMenuItemView()
+                view.title = "ログイン"
+                view.parent = TabPageViewController()
+                let vc = LoginContentViewController()
+                let body = UILabel()
+                body.text = "ログイン画面を実装する"
+                body.sizeToFit()
+                body.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
+                body.center = vc.view.center
+                vc.view.addSubview(body)
+                return TabPageViewController.PageInfo(menuItemView: view, vc: vc)
+            }(),
+            {
+                let view = TextViewMenuItemView()
+                view.title = "新規登録"
+                view.parent = TabPageViewController()
+                let vc = RegisterContentViewController()
+                let body = UILabel()
+                body.text = "新規登録画面を実装する"
+                body.sizeToFit()
+                body.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
+                body.center = vc.view.center
+                vc.view.addSubview(body)
+                return TabPageViewController.PageInfo(menuItemView: view, vc: vc)
+            }(),
+        ]
 
        
         
@@ -209,6 +240,7 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             return
         }
         // 前のメニューを非選択状態に
+        // FIXME: ここでエラーが起きているpageInfoList[]に中身が入っていない。スワイプの時はリストがあるなぜ?
         self.pageInfoList[self.currentPageIndex].menuItemView.didDeselect()
         // インデックス更新
         let direction: UIPageViewController.NavigationDirection = index - 1 > self.currentPageIndex ? .forward : .reverse

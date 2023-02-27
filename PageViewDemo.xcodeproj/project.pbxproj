@@ -9,16 +9,16 @@
 /* Begin PBXBuildFile section */
 		5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */; };
 		5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */; };
-		5C5C8A3229A9943500CCBB08 /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A3129A9943500CCBB08 /* SampleViewController.swift */; };
-		5C5C8A3529A9A0F200CCBB08 /* UnderBerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A3429A9A0F200CCBB08 /* UnderBerTabView.swift */; };
-		5C5C8A3729A9A5F900CCBB08 /* UnderBarTabConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A3629A9A5F900CCBB08 /* UnderBarTabConfig.swift */; };
-		5C5C8A3929A9B18000CCBB08 /* UnderBerTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C5C8A3829A9B17F00CCBB08 /* UnderBerTabView.xib */; };
 		5C610C7E29A6801500D949A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C610C7D29A6801500D949A7 /* AppDelegate.swift */; };
 		5C610C8029A6801500D949A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C610C7F29A6801500D949A7 /* SceneDelegate.swift */; };
 		5C610C8229A6801500D949A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C610C8129A6801500D949A7 /* ViewController.swift */; };
 		5C610C8529A6801500D949A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C610C8329A6801500D949A7 /* Main.storyboard */; };
 		5C610C8729A6805F00D949A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C610C8629A6805F00D949A7 /* Assets.xcassets */; };
 		5C610C8A29A6805F00D949A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C610C8829A6805F00D949A7 /* LaunchScreen.storyboard */; };
+		5C6A49BC29AB5F910074ECE8 /* LoginContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6A49BA29AB5F910074ECE8 /* LoginContentViewController.swift */; };
+		5C6A49BD29AB5F910074ECE8 /* LoginContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C6A49BB29AB5F910074ECE8 /* LoginContentViewController.xib */; };
+		5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6A49C229ABBE770074ECE8 /* RegisterContentViewController.swift */; };
+		5C6A49C529ABBE770074ECE8 /* RegisterContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */; };
 		5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */; };
 		5CA17E4D29A720EC001CDD73 /* TabPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */; };
 /* End PBXBuildFile section */
@@ -26,10 +26,6 @@
 /* Begin PBXFileReference section */
 		5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewControllerMenuItemView.swift; sourceTree = "<group>"; };
 		5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewMenuItemView.swift; sourceTree = "<group>"; };
-		5C5C8A3129A9943500CCBB08 /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
-		5C5C8A3429A9A0F200CCBB08 /* UnderBerTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBerTabView.swift; sourceTree = "<group>"; };
-		5C5C8A3629A9A5F900CCBB08 /* UnderBarTabConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnderBarTabConfig.swift; path = PageViewDemo/Library/UnderBarTabConfig.swift; sourceTree = SOURCE_ROOT; };
-		5C5C8A3829A9B17F00CCBB08 /* UnderBerTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnderBerTabView.xib; sourceTree = "<group>"; };
 		5C610C7A29A6801500D949A7 /* PageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C610C7D29A6801500D949A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C610C7F29A6801500D949A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +34,10 @@
 		5C610C8629A6805F00D949A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C610C8929A6805F00D949A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C610C8B29A6805F00D949A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C6A49BA29AB5F910074ECE8 /* LoginContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginContentViewController.swift; sourceTree = "<group>"; };
+		5C6A49BB29AB5F910074ECE8 /* LoginContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginContentViewController.xib; sourceTree = "<group>"; };
+		5C6A49C229ABBE770074ECE8 /* RegisterContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterContentViewController.swift; sourceTree = "<group>"; };
+		5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterContentViewController.xib; sourceTree = "<group>"; };
 		5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabPageViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,24 +53,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C5C8A3029A993FA00CCBB08 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				5C5C8A3129A9943500CCBB08 /* SampleViewController.swift */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		5C5C8A3329A9A08B00CCBB08 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				5C5C8A3429A9A0F200CCBB08 /* UnderBerTabView.swift */,
-				5C5C8A3829A9B17F00CCBB08 /* UnderBerTabView.xib */,
-				5C5C8A3629A9A5F900CCBB08 /* UnderBarTabConfig.swift */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 		5C610C7129A6801500D949A7 = {
 			isa = PBXGroup;
 			children = (
@@ -90,8 +72,7 @@
 		5C610C7C29A6801500D949A7 /* PageViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				5C5C8A3329A9A08B00CCBB08 /* Library */,
-				5C5C8A3029A993FA00CCBB08 /* Presentation */,
+				5C6A49B529AB0FF60074ECE8 /* Login */,
 				5CA17E4929A7202C001CDD73 /* lib */,
 				5C610C7D29A6801500D949A7 /* AppDelegate.swift */,
 				5C610C7F29A6801500D949A7 /* SceneDelegate.swift */,
@@ -102,6 +83,17 @@
 				5C610C8B29A6805F00D949A7 /* Info.plist */,
 			);
 			path = PageViewDemo;
+			sourceTree = "<group>";
+		};
+		5C6A49B529AB0FF60074ECE8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5C6A49BA29AB5F910074ECE8 /* LoginContentViewController.swift */,
+				5C6A49BB29AB5F910074ECE8 /* LoginContentViewController.xib */,
+				5C6A49C229ABBE770074ECE8 /* RegisterContentViewController.swift */,
+				5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		5CA17E4929A7202C001CDD73 /* lib */ = {
@@ -174,8 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C610C8A29A6805F00D949A7 /* LaunchScreen.storyboard in Resources */,
-				5C5C8A3929A9B18000CCBB08 /* UnderBerTabView.xib in Resources */,
+				5C6A49BD29AB5F910074ECE8 /* LoginContentViewController.xib in Resources */,
 				5CA17E4D29A720EC001CDD73 /* TabPageViewController.xib in Resources */,
+				5C6A49C529ABBE770074ECE8 /* RegisterContentViewController.xib in Resources */,
 				5C610C8729A6805F00D949A7 /* Assets.xcassets in Resources */,
 				5C610C8529A6801500D949A7 /* Main.storyboard in Resources */,
 			);
@@ -189,14 +182,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C610C8229A6801500D949A7 /* ViewController.swift in Sources */,
-				5C5C8A3529A9A0F200CCBB08 /* UnderBerTabView.swift in Sources */,
 				5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */,
 				5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */,
-				5C5C8A3729A9A5F900CCBB08 /* UnderBarTabConfig.swift in Sources */,
+				5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */,
 				5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */,
 				5C610C7E29A6801500D949A7 /* AppDelegate.swift in Sources */,
 				5C610C8029A6801500D949A7 /* SceneDelegate.swift in Sources */,
-				5C5C8A3229A9943500CCBB08 /* SampleViewController.swift in Sources */,
+				5C6A49BC29AB5F910074ECE8 /* LoginContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
