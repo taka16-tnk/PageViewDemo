@@ -10,14 +10,31 @@ import UIKit
 
 class LoginContentViewController: UIViewController {
 
+    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var inputPassword: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
 
-
+    @IBAction func tapLoginBtn(_ sender: Any) {
+        // Userdefaultへ保存
+        let writtenUser = userName.text! as NSString
+        let writtenPass = inputPassword.text! as NSString
+        
+        let defaults = UserDefaults.standard
+        defaults.set(writtenUser, forKey: "id")
+        defaults.set(writtenPass, forKey: "pass")
+        view.endEditing(true)
+        // コンソールに表示
+        print("ID:\(defaults.string(forKey: "id")!)")
+        print("PW:\(defaults.string(forKey: "pass")!)")
+        
+    }
+    
     /*
     // MARK: - Navigation
 
