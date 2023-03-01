@@ -140,6 +140,17 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         designView.widthAnchor.constraint(equalTo: self.menuView.widthAnchor, multiplier: 1.0 / CGFloat(self.pageInfoList.count)).isActive = true
         designView.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
+        // そのままmenuViewにグレーの色をつけてみる
+        let unselectedDesignView = UIView()
+        unselectedDesignView.backgroundColor = .lightGray
+        unselectedDesignView.center = menuView.center
+        self.menuView.addSubview(unselectedDesignView)
+//        self.menuView.bringSubviewToFront(menuView)
+        unselectedDesignView.translatesAutoresizingMaskIntoConstraints = false
+        unselectedDesignView.bottomAnchor.constraint(equalTo: self.menuView.bottomAnchor).isActive = true
+        unselectedDesignView.widthAnchor.constraint(equalTo: self.menuView.widthAnchor, multiplier: 1.0).isActive = true
+        unselectedDesignView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
         // メニュー作る
         var constraintsString = "|"
         var menuItemViewList: [String: UIView] = [:]
