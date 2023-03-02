@@ -6,7 +6,6 @@
 //  Copyright © 2023 Takahiro Tanaka. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class TextViewMenuItemView: TabPageViewControllerMenuItemView {
@@ -57,10 +56,14 @@ class TextViewMenuItemView: TabPageViewControllerMenuItemView {
         self.titleLabel = UILabel()
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.textColor = .lightGray
-        self.titleLabel.highlightedTextColor = .orange
+        self.titleLabel.highlightedTextColor = .black
         self.addSubview(self.titleLabel)
-        self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        self.titleLabel.centerXAnchor
+            .constraint(equalTo: self.centerXAnchor)
+            .isActive = true
+        self.titleLabel.centerYAnchor
+            .constraint(equalTo: self.centerYAnchor)
+            .isActive = true
     }
     
     override func didSelect() {

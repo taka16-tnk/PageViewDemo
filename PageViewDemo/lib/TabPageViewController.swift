@@ -38,6 +38,7 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     private var pageViewController: UIPageViewController!
     private var menuScrollOffsetXList: [CGFloat] = []
 
+    // 画面の読み込みが完了した時に呼ばれるイベント（画面読み込み時のライフサイクル）
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,10 +63,14 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
     }
     
+    // 画面が表示される時に呼ばれるイベント（画面表示時のライフサイクル:画面遷移が発生すると必ず呼ばれるイベント）
+    // 表示される度に毎回実行したい処理を書く
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
+    // 画面をレイアウトする必要があるとiOSが認識した時に呼ばれる
+    // レイアウトに関する設定だけを書いておくようにする
     override func viewDidLayoutSubviews() {
         self.menuBackground.frame.size.width = self.view.frame.width / CGFloat(self.pageInfoList.count)
         if let designView = self.menuBackgroundDesignView {
@@ -73,41 +78,38 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         }
     }
     
+    // タブページの情報
     func initPageInfo() {
         pageInfoList = [
             {
-                let view = TextViewMenuItemView()
-                let vc   = LoginContentViewController()
-                let body = UILabel()
-                view.title = "ログイン"
+                let view    = TextViewMenuItemView()
+                let loginVC = LoginContentViewController()
+                let body    = UILabel()
+                view.title  = "ログイン"
                 view.parent = self
-//                body.text = "ログイン画面を実装する"
                 body.sizeToFit()
                 body.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
-                body.center = vc.view.center
-                vc.view.addSubview(body)
-                return TabPageViewController.PageInfo(menuItemView: view, vc: vc)
+                body.center = loginVC.view.center
+                loginVC.view.addSubview(body)
+                return TabPageViewController.PageInfo(menuItemView: view, vc: loginVC)
             }(),
             {
-                let view = TextViewMenuItemView()
-                let vc   = RegisterContentViewController()
-                let body = UILabel()
-                view.title = "新規登録"
+                let view       = TextViewMenuItemView()
+                let registerVC = RegisterContentViewController()
+                let body       = UILabel()
+                view.title  = "新規登録"
                 view.parent = self
-//                body.text = "新規登録画面を実装する"
                 body.sizeToFit()
                 body.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleLeftMargin]
-                body.center = vc.view.center
-                vc.view.addSubview(body)
-                return TabPageViewController.PageInfo(menuItemView: view, vc: vc)
+                body.center = registerVC.view.center
+                registerVC.view.addSubview(body)
+                return TabPageViewController.PageInfo(menuItemView: view, vc: registerVC)
             }(),
         ]
     }
 
-    
     // ページビューコントローラ諸々
     private func setupPageViewController() {
-        
         // 生成
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
@@ -123,39 +125,49 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
         // ジェスチャー
         self.contentView.gestureRecognizers = self.pageViewController.gestureRecognizers
-        
     }
     
     // ページ諸々
     func setupPageList() {
+        // 未選択状態用のタブ下線viewを設定
+        let unselectedView = UIView()
+        unselectedView.backgroundColor = .lightGray
+        unselectedView.center = menuView.center
+        self.menuView.addSubview(unselectedView)
+        // SwiftコードベースでのAutoLayout設定
+        unselectedView.translatesAutoresizingMaskIntoConstraints = false
+        unselectedView.bottomAnchor
+            .constraint(equalTo: self.menuView.bottomAnchor)
+            .isActive = true
+        unselectedView.widthAnchor
+            .constraint(equalTo: self.menuView.widthAnchor)
+            .isActive = true
+        unselectedView.heightAnchor
+            .constraint(equalToConstant: 2)
+            .isActive = true
         
-        // 選択箇所に下線をつける
-        let designView = UIView()
-        designView.backgroundColor = .orange
-        designView.center = menuBackground.center
-        self.menuBackground.addSubview(designView)
+        // 選択状態用の下線viewを設定
+        let selectedView = UIView()
+        selectedView.backgroundColor = .orange
+        selectedView.center = menuBackground.center
+        self.menuBackground.addSubview(selectedView)
         self.menuView.bringSubviewToFront(menuBackground)
-        designView.translatesAutoresizingMaskIntoConstraints = false
-        designView.bottomAnchor.constraint(equalTo: self.menuView.bottomAnchor).isActive = true
-        designView.widthAnchor.constraint(equalTo: self.menuView.widthAnchor, multiplier: 1.0 / CGFloat(self.pageInfoList.count)).isActive = true
-        designView.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        
-        // そのままmenuViewにグレーの色をつけてみる
-        let unselectedDesignView = UIView()
-        unselectedDesignView.backgroundColor = .lightGray
-        unselectedDesignView.center = menuView.center
-        self.menuView.addSubview(unselectedDesignView)
-//        self.menuView.bringSubviewToFront(menuView)
-        unselectedDesignView.translatesAutoresizingMaskIntoConstraints = false
-        unselectedDesignView.bottomAnchor.constraint(equalTo: self.menuView.bottomAnchor).isActive = true
-        unselectedDesignView.widthAnchor.constraint(equalTo: self.menuView.widthAnchor, multiplier: 1.0).isActive = true
-        unselectedDesignView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        selectedView.translatesAutoresizingMaskIntoConstraints = false
+        selectedView.bottomAnchor
+            .constraint(equalTo: self.menuView.bottomAnchor)
+            .isActive = true
+        selectedView.widthAnchor
+            .constraint(equalTo: self.menuView.widthAnchor,
+                        multiplier: 1.0 / CGFloat(self.pageInfoList.count))
+            .isActive = true
+        selectedView.heightAnchor
+            .constraint(equalToConstant: 2)
+            .isActive = true
         
         // メニュー作る
         var constraintsString = "|"
         var menuItemViewList: [String: UIView] = [:]
         for i in 0..<self.pageInfoList.count {
-            
             let menuItemView = self.pageInfoList[i].menuItemView
             menuItemView.translatesAutoresizingMaskIntoConstraints = false
             self.menuView.addSubview(menuItemView)
@@ -199,13 +211,18 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             ))
             
             // 最初のページをセット
-            self.pageViewController.setViewControllers([self.pageInfoList[self.currentPageIndex].vc], direction: .forward, animated: false, completion: nil)
+            self.pageViewController.setViewControllers(
+                [self.pageInfoList[self.currentPageIndex].vc],
+                direction: .forward,
+                animated: false,
+                completion: nil)
             self.pageInfoList[self.currentPageIndex].menuItemView.didSelect()
         }
     }
     
     // 左隣のページ取得
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = viewController.view.tag - 1
         
         index -= 1
@@ -217,7 +234,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     }
     
     // 右隣のページ取得
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = viewController.view.tag - 1
         
         index += 1
@@ -234,7 +252,10 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     }
     
     // 遷移アニメーションが完了した時
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
         if completed {
             // 前のメニューを非選択状態に
             self.pageInfoList[self.currentPageIndex].menuItemView.didDeselect()
@@ -246,8 +267,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             UIView.animate(
                 withDuration: 0.2,
                 animations: {
-                    self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x
-            })
+                    self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x}
+            )
         }
     }
 
