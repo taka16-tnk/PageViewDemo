@@ -13,6 +13,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     var webView: WKWebView = WKWebView()
     let webConfiguration: WKWebViewConfiguration = WKWebViewConfiguration()
+    var progressView: UIProgressView!
 
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var goBackBtn: UIButton! {
@@ -27,6 +28,8 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             goForwardBtn.alpha     = 0.4
         }
     }
+    @IBOutlet weak var reloadBtn: UIButton!
+    @IBOutlet weak var headerProgressView: UIView!
     
     // KVO(Key Value Observing)とはオブジェクトの値の変更の監視
     private var _observers = [NSKeyValueObservation]()
@@ -36,6 +39,8 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         
         setWebArrangement()
         loadWebView()
+        // 読み込み状態インジケータ
+        setUpPorgressView()
         
         // 戻る・進むボタンを有効化できる状態になるまで無効化にしておく
         _observers.append(webView.observe(\.canGoBack, options: .new){ _, change in
@@ -55,6 +60,17 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             }
         })
         
+        // isLoading プロパティを監視して更新できる状態のみ再読み込み可能
+        _observers.append(webView.observe(\.isLoading, options: .new) {_, change in
+            if let value = change.newValue {
+                DispatchQueue.main.async {
+                    // isLoadingがtrueの時は無効化
+                    self.reloadBtn.isEnabled = !value
+                    self.reloadBtn.alpha     = !value ? 1.0 : 0.4
+                }
+            }
+        })
+        
     }
     // 戻るボタン タップ
     @IBAction func tapGoBack(_ sender: Any) {
@@ -65,6 +81,12 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @IBAction func tapGoForward(_ sender: Any) {
         webView.goForward()
     }
+    
+    // 再読み込みボタン
+    @IBAction func tapReload(_ sender: Any) {
+        webView.reload()
+    }
+    
     
     // アプリ画面にWebViewを配置
     func setWebArrangement() {
@@ -91,6 +113,29 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             // load リクエストでURLを表示
             webView.load(request as URLRequest)
         }
+    }
+    
+    // プログレスバー
+    func setUpPorgressView() {
+        self.progressView = UIProgressView(frame: CGRect(x: 0, y: headerProgressView.frame.maxY, width: self.view.frame.width, height: 3.0))
+        self.progressView.progressViewStyle = .bar
+        self.view.addSubview(self.progressView)
+        _observers.append(self.webView.observe(\.estimatedProgress, options: .new, changeHandler: {(webView, change) in
+            self.progressView.alpha = 1.0
+            // estimateProgressが変更された時にプログレスバーの値を変更
+            self.progressView.setProgress(Float(change.newValue!), animated: true)
+            if self.webView.estimatedProgress >= 1.0 {
+                UIView.animate(withDuration: 0.3,
+                               delay: 0.3,
+                               options: [.curveEaseOut],
+                               animations: { [weak self] in
+                                self?.progressView.alpha = 0.0
+                                
+                    }, completion: {_ in
+                        self.progressView.setProgress(0.0, animated: false)
+                })
+            }
+        }))
     }
     
 //    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
