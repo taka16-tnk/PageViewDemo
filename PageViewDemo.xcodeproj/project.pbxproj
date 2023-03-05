@@ -21,6 +21,7 @@
 		5C6A49C529ABBE770074ECE8 /* RegisterContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */; };
 		5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */; };
 		5CA17E4D29A720EC001CDD73 /* TabPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */; };
+		5CDC9E1D29B2EF8700471628 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC9E1C29B2EF8700471628 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterContentViewController.xib; sourceTree = "<group>"; };
 		5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabPageViewController.xib; sourceTree = "<group>"; };
+		5CDC9E1C29B2EF8700471628 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				5C610C8629A6805F00D949A7 /* Assets.xcassets */,
 				5C610C8829A6805F00D949A7 /* LaunchScreen.storyboard */,
 				5C610C8B29A6805F00D949A7 /* Info.plist */,
+				5CDC9E1C29B2EF8700471628 /* WebViewController.swift */,
 			);
 			path = PageViewDemo;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C610C8229A6801500D949A7 /* ViewController.swift in Sources */,
+				5CDC9E1D29B2EF8700471628 /* WebViewController.swift in Sources */,
 				5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */,
 				5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */,
 				5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */,
