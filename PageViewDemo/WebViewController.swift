@@ -88,12 +88,12 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     }
     
     
-    // アプリ画面にWebViewを配置
+    // WKWebViewのセットアップ（アプリ画面にWebViewを配置）
     func setWebArrangement() {
         // Webビューの生成
         webView = WKWebView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height), configuration: webConfiguration)
-        webView.uiDelegate = self
-        webView.navigationDelegate = self
+        webView.navigationDelegate = self   // Delegate1: 画面の読み込み・遷移系
+        webView.uiDelegate = self           // Delegate2: jsとの連携系
         
         contentView.addSubview(webView)
         
@@ -105,7 +105,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         
     }
     
-    // WebViewの読み込み
+    // WebViewの読み込み（webページのロード）
     func loadWebView() {
         // URLのnil対策としてif文を使用
         if let url = NSURL(string: "https://www.yahoo.co.jp/") {
@@ -138,14 +138,67 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         }))
     }
     
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        DispatchQueue.main.async {
-//            self.goBackBtn.isEnabled = webView.canGoBack
-//            self.goBackBtn.alpha     = webView.canGoBack ? 1.0 : 0.4
-//            self.goForwardBtn.isEnabled = webView.canGoForward
-//            self.goForwardBtn.alpha = webView.canGoForward ? 1.0 :4.0
-//        }
-//    }
+    /** START_Delegate 画面の読み込み・遷移系 **/
+    
+    // MARK: - 読み込み設定（リクエスト前）
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        print("リクエスト前")
+        /**WebView内の特定のリンクをタップした時の処理などがかける*/
+        let url = navigationAction.request.url
+        print("読込URLページ：", url ?? "")
+        // リンクタップしてページを読み込む前に呼ばれる
+        // AppStoreのリンクだったらストアに飛ばす、Deeplinkだったらアプリに戻る のようなことができる
+        
+        // これを設定しないとアプリがクラッシュする
+        decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
+    }
+    
+    // MARK: - 読み込み準備開始
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        print("読み込み準備開始")
+    }
+    
+    // MARK: - 読み込み設定（レスポンス取得後）
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        print("レスポンス取得後")
+        
+        // これを設定しないとアプリがクラッシュする
+        decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
+        // 注意：受け取るレスポンスはページを読み込みタイミングのみで、Webページでの操作後の値などは受け取れない
+    }
+    
+    // MARK: - 読み込み開始
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print("読み込み開始")
+    }
+    
+    // MARK: - ユーザー認証（このメソッドを呼ばないと認証してくれない）
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        print("ユーザー認証")
+        completionHandler(.useCredential, nil)
+    }
+    
+    // MARK: - 読み込み完了
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("読み込み完了")
+    }
+    
+    // MARK: - 読み込み失敗検知
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("読み込み失敗検知")
+    }
+    
+    // MARK: - 読み込み失敗
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("読み込み失敗")
+    }
+    
+    // MARK: - リダイレクト
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        print("リダイレクト")
+    }
+    
+    /** END_Delegate 画面の読み込み・遷移系 **/
     
 
 }
