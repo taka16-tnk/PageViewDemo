@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C243F9929BC22EC0040F742 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243F9829BC22EC0040F742 /* Route.swift */; };
 		5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */; };
 		5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */; };
 		5C610C7E29A6801500D949A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C610C7D29A6801500D949A7 /* AppDelegate.swift */; };
@@ -20,11 +21,11 @@
 		5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6A49C229ABBE770074ECE8 /* RegisterContentViewController.swift */; };
 		5C6A49C529ABBE770074ECE8 /* RegisterContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */; };
 		5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */; };
-		5CA17E4D29A720EC001CDD73 /* TabPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */; };
 		5CDC9E1D29B2EF8700471628 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC9E1C29B2EF8700471628 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C243F9829BC22EC0040F742 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewControllerMenuItemView.swift; sourceTree = "<group>"; };
 		5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewMenuItemView.swift; sourceTree = "<group>"; };
 		5C610C7A29A6801500D949A7 /* PageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,7 +41,6 @@
 		5C6A49C229ABBE770074ECE8 /* RegisterContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterContentViewController.swift; sourceTree = "<group>"; };
 		5C6A49C329ABBE770074ECE8 /* RegisterContentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterContentViewController.xib; sourceTree = "<group>"; };
 		5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
-		5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabPageViewController.xib; sourceTree = "<group>"; };
 		5CDC9E1C29B2EF8700471628 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +84,7 @@
 				5C610C8829A6805F00D949A7 /* LaunchScreen.storyboard */,
 				5C610C8B29A6805F00D949A7 /* Info.plist */,
 				5CDC9E1C29B2EF8700471628 /* WebViewController.swift */,
+				5C243F9829BC22EC0040F742 /* Route.swift */,
 			);
 			path = PageViewDemo;
 			sourceTree = "<group>";
@@ -104,7 +105,6 @@
 			children = (
 				5CA17E4A29A720EC001CDD73 /* TabPageViewController.swift */,
 				5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */,
-				5CA17E4B29A720EC001CDD73 /* TabPageViewController.xib */,
 				5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */,
 			);
 			path = lib;
@@ -170,7 +170,6 @@
 			files = (
 				5C610C8A29A6805F00D949A7 /* LaunchScreen.storyboard in Resources */,
 				5C6A49BD29AB5F910074ECE8 /* LoginContentViewController.xib in Resources */,
-				5CA17E4D29A720EC001CDD73 /* TabPageViewController.xib in Resources */,
 				5C6A49C529ABBE770074ECE8 /* RegisterContentViewController.xib in Resources */,
 				5C610C8729A6805F00D949A7 /* Assets.xcassets in Resources */,
 				5C610C8529A6801500D949A7 /* Main.storyboard in Resources */,
@@ -187,6 +186,7 @@
 				5C610C8229A6801500D949A7 /* ViewController.swift in Sources */,
 				5CDC9E1D29B2EF8700471628 /* WebViewController.swift in Sources */,
 				5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */,
+				5C243F9929BC22EC0040F742 /* Route.swift in Sources */,
 				5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */,
 				5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */,
 				5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */,

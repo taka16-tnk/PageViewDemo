@@ -55,6 +55,7 @@ class TextViewMenuItemView: TabPageViewControllerMenuItemView {
         
         self.titleLabel = UILabel()
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.titleLabel.font = .systemFont(ofSize: 12)
         self.titleLabel.textColor = .lightGray
         self.titleLabel.highlightedTextColor = .black
         self.addSubview(self.titleLabel)

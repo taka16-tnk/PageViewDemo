@@ -8,6 +8,8 @@
 
 import UIKit
 
+//viewDidLoad等でタブのindex指定で初期表示のタブを指定して表示できるように改修すれば可能かと思います
+
 // プロトコルとは、具体的な処理内容は書かず、クラスや構造体が実装するプロパティとメソッドを定義する機能です
 protocol TabPageViewControllerMenuItemViewDelegate {
     var parent: TabPageViewController! { set get }
@@ -26,22 +28,24 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var menuBackground: UIView!
     @IBOutlet weak var contentView: UIView!
-    
+    // バーボタンアイテムの宣言
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var settingButton: UIButton!
+
     
     // pageView上で表示するViewControllerを管理する配列
     var pageInfoList: [PageInfo] = []
     var currentPageIndex = 0
+    var tagIndex = 0
     var menuItemViewWidth: CGFloat?
     var menuBackgroundDesignView: UIView?
-    var shourldIgnoreScrollDelegate = false
     
     private var pageViewController: UIPageViewController!
-    private var menuScrollOffsetXList: [CGFloat] = []
 
     // 画面の読み込みが完了した時に呼ばれるイベント（画面読み込み時のライフサイクル）
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         // ナビゲーションバーの背景色
         self.navigationController?.navigationBar.barTintColor = .red
         // ナビゲーションバーのアイテムの色
@@ -62,6 +66,17 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         self.setupPageList()
         
     }
+    
+    // 閉じるボタンが押された時の処理
+    @IBAction func closeTouchUpInside(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    // 設定ボタンが押された時の処理
+    @IBAction func settingTouchUpInside(_ sender: Any) {
+        print("設定ボタンが押されました")
+    }
+
     
     // 画面が表示される時に呼ばれるイベント（画面表示時のライフサイクル:画面遷移が発生すると必ず呼ばれるイベント）
     // 表示される度に毎回実行したい処理を書く
@@ -212,11 +227,11 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             
             // 最初のページをセット
             self.pageViewController.setViewControllers(
-                [self.pageInfoList[self.currentPageIndex].vc],
+                [self.pageInfoList[self.tagIndex].vc],
                 direction: .forward,
                 animated: false,
                 completion: nil)
-            self.pageInfoList[self.currentPageIndex].menuItemView.didSelect()
+            self.pageInfoList[self.tagIndex].menuItemView.didSelect()
         }
     }
     

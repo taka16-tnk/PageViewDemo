@@ -36,6 +36,10 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // ナビゲーションバーの背景色
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 187/255, green: 0/255, blue:27/255, alpha:1.0)
+        // ナビゲーションバーのアイテムの色
+        self.navigationController?.navigationBar.tintColor = .white
         
         setWebArrangement()
         loadWebView()
@@ -109,7 +113,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     func loadWebView() {
         // URLのnil対策としてif文を使用
         if let url = NSURL(string: "https://www.yahoo.co.jp/") {
-            let request = NSURLRequest(url: url as URL)
+            let request = NSMutableURLRequest(url: url as URL)
             // load リクエストでURLを表示
             webView.load(request as URLRequest)
         }
@@ -138,14 +142,30 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         }))
     }
     
+    func sendLoginVC(index: Int) {
+        let nc: UINavigationController = self.storyboard!.instantiateViewController(withIdentifier: Route.Scene.login.rootIdentifier()) as! UINavigationController
+        let targetVC = nc.viewControllers[0] as! TabPageViewController
+        targetVC.tagIndex = index
+        self.present(nc, animated: true, completion: nil)
+    }
+    
     /** START_Delegate 画面の読み込み・遷移系 **/
     
     // MARK: - 読み込み設定（リクエスト前）
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print("リクエスト前")
         /**WebView内の特定のリンクをタップした時の処理などがかける*/
-        let url = navigationAction.request.url
-        print("読込URLページ：", url ?? "")
+        print("URL ==", navigationAction.request.url?.absoluteString ?? "")
+        var needsLogin = false
+        if let url = navigationAction.request.url?.absoluteString {
+            if (url.contains("://login.yahoo.co.jp")) {
+                print("ログイン画面です")
+                self.sendLoginVC(index: 0)
+            } else if (url.contains("://m.yahoo.co.jp/notification")) {
+                print("新規登録画面です")
+                self.sendLoginVC(index: 1)
+            }
+        }
         // リンクタップしてページを読み込む前に呼ばれる
         // AppStoreのリンクだったらストアに飛ばす、Deeplinkだったらアプリに戻る のようなことができる
         
