@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SafariServices
 import WebKit
 
-class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, SFSafariViewControllerDelegate {
     
     var webView: WKWebView = WKWebView()
     let webConfiguration: WKWebViewConfiguration = WKWebViewConfiguration()
@@ -145,37 +146,59 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     func sendLoginVC(index: Int) {
         let nc: UINavigationController = self.storyboard!.instantiateViewController(withIdentifier: Route.Scene.login.rootIdentifier()) as! UINavigationController
         let targetVC = nc.viewControllers[0] as! TabPageViewController
-        targetVC.tagIndex = index
+        targetVC.currentPageIndex = index
         self.present(nc, animated: true, completion: nil)
     }
     
     /** START_Delegate 画面の読み込み・遷移系 **/
     
     // MARK: - 読み込み設定（リクエスト前）
+    // リンクタップしてページを読み込む前に呼ばれる
+    // AppStoreのリンクだったらストアに飛ばす、Deeplinkだったらアプリに戻る のようなことができる
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print("リクエスト前")
         /**WebView内の特定のリンクをタップした時の処理などがかける*/
         print("URL ==", navigationAction.request.url?.absoluteString ?? "")
-        var needsLogin = false
-        if let url = navigationAction.request.url?.absoluteString {
-            if (url.contains("://login.yahoo.co.jp")) {
+        print("WebView の URL ==", self.webView.url ?? "")
+        var isCancel = false
+        
+        guard let url = navigationAction.request.url else {
+            return
+        }
+        
+        if navigationAction.navigationType == .linkActivated {
+            if (url.absoluteString.contains("://login.yahoo.co.jp")) {
                 print("ログイン画面です")
+                isCancel = true
                 self.sendLoginVC(index: 0)
-            } else if (url.contains("://m.yahoo.co.jp/notification")) {
+            } else if (url.absoluteString.contains("://m.yahoo.co.jp/notification")) {
                 print("新規登録画面です")
+                isCancel = true
                 self.sendLoginVC(index: 1)
+            } else if (url.absoluteString.contains("://news.yahoo.co.jp")) {
+                isCancel = true
+                // SFSafariVCで表示
+                let vc = SFSafariViewController(url: url)
+                vc.delegate = self
+                present(vc, animated: true, completion: nil)
             }
         }
-        // リンクタップしてページを読み込む前に呼ばれる
-        // AppStoreのリンクだったらストアに飛ばす、Deeplinkだったらアプリに戻る のようなことができる
         
-        // これを設定しないとアプリがクラッシュする
-        decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
+        if (isCancel) {
+            decisionHandler(.cancel)
+        } else {
+             // これを設定しないとアプリがクラッシュする
+            decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
+        }
+                
     }
     
     // MARK: - 読み込み準備開始
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("読み込み準備開始")
+        // 遷移先を保存する
+        let url = self.webView.url?.absoluteString
+        print("読み込み準備開始のURL ==", url ?? "")
     }
     
     // MARK: - 読み込み設定（レスポンス取得後）
@@ -201,6 +224,10 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     // MARK: - 読み込み完了
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("読み込み完了")
+        // ここで外部ブラウザを表示してみる
+        let url = self.webView.url
+        print("読み込み完了のURL ==", url ?? "")
+        
     }
     
     // MARK: - 読み込み失敗検知
@@ -220,5 +247,12 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     /** END_Delegate 画面の読み込み・遷移系 **/
     
+    
+    /* MARK: - START_SFSafariViewControllerDelegate **/
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        print("Safariとじる")
+        dismiss(animated: true)
+//        webView.goBack()
+    }
 
 }
