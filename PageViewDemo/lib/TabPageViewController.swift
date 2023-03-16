@@ -8,8 +8,6 @@
 
 import UIKit
 
-//viewDidLoad等でタブのindex指定で初期表示のタブを指定して表示できるように改修すれば可能かと思います
-
 // プロトコルとは、具体的な処理内容は書かず、クラスや構造体が実装するプロパティとメソッドを定義する機能です
 protocol TabPageViewControllerMenuItemViewDelegate {
     var parent: TabPageViewController! { set get }
@@ -46,11 +44,13 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
             
+//        UINavigationBar.appearance().backgroundColor = .red
+//        UINavigationBar.appearance().tintColor = .white
         // ナビゲーションバーの背景色
         self.navigationController?.navigationBar.barTintColor = .red
         // ナビゲーションバーのアイテムの色
         self.navigationController?.navigationBar.tintColor = .white
-        
+
         // ページ情報
         self.initPageInfo()
                
@@ -91,6 +91,12 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         if let designView = self.menuBackgroundDesignView {
             designView.center = self.menuBackground.center
         }
+    }
+    
+    // 画面遷移が完全に完了した時に呼ばれるイベント
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x
     }
     
     // タブページの情報
@@ -163,7 +169,7 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
         // 選択状態用の下線viewを設定
         let selectedView = UIView()
-        selectedView.backgroundColor = .orange
+        selectedView.backgroundColor = .black
         selectedView.center = menuBackground.center
         self.menuBackground.addSubview(selectedView)
         self.menuView.bringSubviewToFront(menuBackground)
@@ -227,11 +233,11 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             
             // 最初のページをセット
             self.pageViewController.setViewControllers(
-                [self.pageInfoList[self.tagIndex].vc],
+                [self.pageInfoList[self.currentPageIndex].vc],
                 direction: .forward,
                 animated: false,
                 completion: nil)
-            self.pageInfoList[self.tagIndex].menuItemView.didSelect()
+            self.pageInfoList[self.currentPageIndex].menuItemView.didSelect()
         }
     }
     
@@ -271,6 +277,7 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
+        
         if completed {
             // 前のメニューを非選択状態に
             self.pageInfoList[self.currentPageIndex].menuItemView.didDeselect()
@@ -280,15 +287,14 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
             self.pageInfoList[self.currentPageIndex].menuItemView.didSelect()
 
             UIView.animate(
-                withDuration: 0.2,
-                animations: {
-                    self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x}
-            )
+                withDuration: 0.0,
+                animations: {self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x})
         }
     }
 
     //  メニューがタップされたときの処理
     func menuDidSelectByTap(index: Int) {
+
         guard index - 1 != self.currentPageIndex else {
             return
         }
@@ -307,11 +313,10 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         // 新しいメニューを選択状態に
         self.pageInfoList[self.currentPageIndex].menuItemView.didSelect()
 
+        // 選択下線移動
         UIView.animate(
             withDuration: 0.2,
-            animations: {
-                self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x
-        })
+            animations: {self.menuBackground.frame.origin.x = self.pageInfoList[self.currentPageIndex].menuItemView.frame.origin.x})
     }
 
 }
