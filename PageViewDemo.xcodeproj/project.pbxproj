@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C243F9929BC22EC0040F742 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243F9829BC22EC0040F742 /* Route.swift */; };
+		5C390AB429C2D3F9001D5B79 /* WebDataState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C390AB329C2D3F9001D5B79 /* WebDataState.swift */; };
 		5C5C8A2D29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */; };
 		5C5C8A2F29A76B1200CCBB08 /* TextViewMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */; };
 		5C610C7E29A6801500D949A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C610C7D29A6801500D949A7 /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		5C243F9829BC22EC0040F742 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		5C390AB329C2D3F9001D5B79 /* WebDataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDataState.swift; sourceTree = "<group>"; };
 		5C5C8A2C29A754DD00CCBB08 /* TabPageViewControllerMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPageViewControllerMenuItemView.swift; sourceTree = "<group>"; };
 		5C5C8A2E29A76B1200CCBB08 /* TextViewMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewMenuItemView.swift; sourceTree = "<group>"; };
 		5C610C7A29A6801500D949A7 /* PageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 				5C610C8B29A6805F00D949A7 /* Info.plist */,
 				5CDC9E1C29B2EF8700471628 /* WebViewController.swift */,
 				5C243F9829BC22EC0040F742 /* Route.swift */,
+				5C390AB329C2D3F9001D5B79 /* WebDataState.swift */,
 			);
 			path = PageViewDemo;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				5C6A49C429ABBE770074ECE8 /* RegisterContentViewController.swift in Sources */,
 				5CA17E4C29A720EC001CDD73 /* TabPageViewController.swift in Sources */,
 				5C610C7E29A6801500D949A7 /* AppDelegate.swift in Sources */,
+				5C390AB429C2D3F9001D5B79 /* WebDataState.swift in Sources */,
 				5C610C8029A6801500D949A7 /* SceneDelegate.swift in Sources */,
 				5C6A49BC29AB5F910074ECE8 /* LoginContentViewController.swift in Sources */,
 			);

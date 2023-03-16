@@ -69,6 +69,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
     
     // 閉じるボタンが押された時の処理
     @IBAction func closeTouchUpInside(_ sender: Any) {
+        print("閉じる押された")
+        WebDataState.sharedInstance.isClose = true
         self.dismiss(animated: true, completion: nil)
     }
 

@@ -37,6 +37,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
         // ナビゲーションバーの背景色
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 187/255, green: 0/255, blue:27/255, alpha:1.0)
         // ナビゲーションバーのアイテムの色
@@ -77,6 +78,34 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
         })
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear:", animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear:", animated)
+        if (WebDataState.sharedInstance.isClose) {
+            print("リロードします")
+            WebDataState.sharedInstance.isClose = false
+            webView.reload()
+        } else {
+            print("何もしません")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear:", animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear:", animated)
+    }
+    
     // 戻るボタン タップ
     @IBAction func tapGoBack(_ sender: Any) {
         webView.goBack()
