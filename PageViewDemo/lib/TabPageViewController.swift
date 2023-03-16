@@ -144,7 +144,8 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
         
         // デリゲート
         self.pageViewController.delegate   = self
-        self.pageViewController.dataSource = self
+        // ログイン状態の場合はスワイプを無効化させる
+        self.pageViewController.dataSource = WebDataState.sharedInstance.isLogin ? nil : self
         
         // ジェスチャー
         self.contentView.gestureRecognizers = self.pageViewController.gestureRecognizers
@@ -296,6 +297,13 @@ class TabPageViewController: UIViewController, UIPageViewControllerDelegate, UIP
 
     //  メニューがタップされたときの処理
     func menuDidSelectByTap(index: Int) {
+        
+        // ログイン状態の時はメニュータップ時の処理を行わない
+        guard !WebDataState.sharedInstance.isLogin else {
+            print("ログイン状態です")
+            return
+        }
+        print("未ログイン状態です")
 
         guard index - 1 != self.currentPageIndex else {
             return

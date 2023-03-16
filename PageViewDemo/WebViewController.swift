@@ -197,9 +197,15 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
         
         if navigationAction.navigationType == .linkActivated {
             if (url.absoluteString.contains("://login.yahoo.co.jp")) {
-                print("ログイン画面です")
-                isCancel = true
-                self.sendLoginVC(index: 0)
+                if (WebDataState.sharedInstance.isLogin) {
+                    print("フラグがログイン状態なのでログイン画面には遷移しない")
+                    isCancel = true
+                } else {
+                    print("ログイン画面です")
+                    isCancel = true
+                    self.sendLoginVC(index: 0)
+                }
+                
             } else if (url.absoluteString.contains("://m.yahoo.co.jp/notification")) {
                 print("新規登録画面です")
                 isCancel = true

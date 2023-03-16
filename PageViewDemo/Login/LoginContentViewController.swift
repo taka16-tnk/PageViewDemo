@@ -33,6 +33,9 @@ class LoginContentViewController: UIViewController {
         print("ID:\(defaults.string(forKey: "id")!)")
         print("PW:\(defaults.string(forKey: "pass")!)")
         
+        // 簡易的なログイン状態フラグを立てる
+        WebDataState.sharedInstance.isLogin = true
+        dismiss(animated: true, completion: nil)
     }
     
     /*
