@@ -179,75 +179,104 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
         self.present(nc, animated: true, completion: nil)
     }
     
-    /** START_Delegate 画面の読み込み・遷移系 **/
+    /* MARK: - START_Delegate 画面の読み込み・遷移系 */
+    /**
+     以下のURLは対象ドメインとしてWKWebViewで表示させる
+        m.yahoo.co.jp
+        news.yahoo.co.jp
+        creators.yahoo.co.jp
+        login.yahoo.co.jp
+     それ以外のドメインはSFSafariWebViewで表示させる
+     */
+
+
+    let targetURLs = ["news.yahoo.co.jp", "creators.yahoo.co.jp", "login.yahoo.co.jp"]
+    var hasLinkTap = false
     
+    func chkURL(url: String?) -> Bool {
+        var chkResult = false
+        for domain in targetURLs {
+            if (url!.contains(domain)) {
+                chkResult = true
+            }
+        }
+        return chkResult
+    }
     // MARK: - 読み込み設定（リクエスト前）
     // リンクタップしてページを読み込む前に呼ばれる
     // AppStoreのリンクだったらストアに飛ばす、Deeplinkだったらアプリに戻る のようなことができる
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         print("リクエスト前")
         /**WebView内の特定のリンクをタップした時の処理などがかける*/
-        print("URL ==", navigationAction.request.url?.absoluteString ?? "")
-        print("WebView の URL ==", self.webView.url ?? "")
-        var isCancel = false
-        
         guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
             return
         }
         
         if navigationAction.navigationType == .linkActivated {
-            if (url.absoluteString.contains("://login.yahoo.co.jp")) {
-                if (WebDataState.sharedInstance.isLogin) {
-                    print("フラグがログイン状態なのでログイン画面には遷移しない")
-                    isCancel = true
-                } else {
-                    print("ログイン画面です")
-                    isCancel = true
-                    self.sendLoginVC(index: 0)
-                }
-                
-            } else if (url.absoluteString.contains("://m.yahoo.co.jp/notification")) {
-                print("新規登録画面です")
-                isCancel = true
-                self.sendLoginVC(index: 1)
-            } else if (url.absoluteString.contains("://news.yahoo.co.jp")) {
-                isCancel = true
-                // SFSafariVCで表示
-                let vc = SFSafariViewController(url: url)
-                vc.delegate = self
-                present(vc, animated: true, completion: nil)
+            /* リンクタップ時の処理 */
+            hasLinkTap = true
+            print("リンクタップのURL === ", url)
+            if (url.host == "m.yahoo.co.jp" || chkURL(url: url.absoluteString)) {
+                // 対象ドメインの場合、処理を許可
+                decisionHandler(.allow)
+                return
             }
         }
         
-        if (isCancel) {
-            decisionHandler(.cancel)
-        } else {
-             // これを設定しないとアプリがクラッシュする
-            decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
-        }
-                
+        
+        decisionHandler(.allow)
     }
     
     // MARK: - 読み込み準備開始
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("読み込み準備開始")
-        // 遷移先を保存する
+        // TODO: このタイミングで遷移先URLを保存する?
         let url = self.webView.url?.absoluteString
         print("読み込み準備開始のURL ==", url ?? "")
     }
     
     // MARK: - 読み込み設定（レスポンス取得後）
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        print("レスポンス取得後")
         
-        // これを設定しないとアプリがクラッシュする
-        decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
-        // 注意：受け取るレスポンスはページを読み込みタイミングのみで、Webページでの操作後の値などは受け取れない
+        // ナビゲーションレスポンスからURLを取得
+        guard let url = navigationResponse.response.url else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        print("レスポンス取得後ホスト", url.host!)
+        print("レスポンス取得後のURL === ", navigationResponse.response.url)
+        print("webViewレスポンス取得後のURL === ", self.webView.url?.absoluteString)
+        
+        if hasLinkTap {
+            if (url.host == "m.yahoo.co.jp" || chkURL(url: url.absoluteString)) {
+                decisionHandler(.allow)
+            } else {
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.delegate = self
+                self.present(safariVC, animated: true, completion: nil)
+                decisionHandler(.cancel)
+            }
+            hasLinkTap = false
+        } else {
+            // これを設定しないとアプリがクラッシュする
+            decisionHandler(.allow) // .allow: 読み込み許可、.cancel: 読み込みキャンセル
+            // 注意：受け取るレスポンスはページを読み込みタイミングのみで、Webページでの操作後の値などは受け取れない
+        }
+        
+        
+    }
+    
+    // MARK: - リダイレクト
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        print("リダイレクト")
     }
     
     // MARK: - 読み込み開始
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         print("読み込み開始")
+        print("読み込み開始のURL === ", self.webView.url?.absoluteString)
     }
     
     // MARK: - ユーザー認証（このメソッドを呼ばないと認証してくれない）
@@ -262,7 +291,7 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
         // ここで外部ブラウザを表示してみる
         let url = self.webView.url
         print("読み込み完了のURL ==", url ?? "")
-        
+
     }
     
     // MARK: - 読み込み失敗検知
@@ -275,19 +304,12 @@ class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, S
         print("読み込み失敗")
     }
     
-    // MARK: - リダイレクト
-    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        print("リダイレクト")
-    }
-    
     /** END_Delegate 画面の読み込み・遷移系 **/
     
     
     /* MARK: - START_SFSafariViewControllerDelegate **/
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        print("Safariとじる")
         dismiss(animated: true)
-//        webView.goBack()
     }
 
 }
